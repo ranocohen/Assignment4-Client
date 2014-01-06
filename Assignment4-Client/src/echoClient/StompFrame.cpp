@@ -1,5 +1,5 @@
 /*
- * StompFrame.cpp
+ * ConnectFrame.cpp
  *
  *  Created on: Jan 6, 2014
  *      Author: idanakav

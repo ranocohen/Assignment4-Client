@@ -7,10 +7,14 @@
 
 #ifndef STOMPFRAME_H_
 #define STOMPFRAME_H_
+#include <string>
+
+using namespace std;
 
 class StompFrame {
 public:
-	StompFrame() =0;
+	StompFrame();
+	virtual string toString() =0;
 	virtual ~StompFrame();
 };
 
