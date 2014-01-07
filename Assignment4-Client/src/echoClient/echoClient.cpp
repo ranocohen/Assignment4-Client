@@ -13,7 +13,7 @@ int main (int argc, char *argv[]) {
         return -1;
     }
     std::string host = argv[1];
-    short port = atoi(argv[2]);
+    int port = atoi(argv[2]);
 
     ConnectionHandler connectionHandler(host, port);
     if (!connectionHandler.connect()) {
@@ -23,11 +23,11 @@ int main (int argc, char *argv[]) {
 
 
 
+
 	// We will send now  A Greek string encoded in UTF-8 to the server and get it back. We will play with this string a little:
 	// A Greek string encoded in UTF-8
 	// 20 = space                   = 0020
-	// ce ba = kappa                = 03ba
-	// e1 bd b9 = omicron with oxia = 1f79
+	// ce ba = kappa                = 03baa
 	// cf 83 = sigma                = 03c3
 	// ce bc = mu                   = 03bc
 	// ce b5 = epsilon              = 03b5
@@ -35,13 +35,15 @@ int main (int argc, char *argv[]) {
 	unsigned char greek[] = {0x20, 0xce, 0xba, 0xe1, 0xbd, 0xb9, 0xcf,
 								 0x83, 0xce, 0xbc, 0xce, 0xb5, 0x0a, 0x00};
 
+
 	Encoder encoder;
 
 
 	ConnectFrame cf;
 
-
+	/*
 	std::string utf8g (encoder.fromBytes((const char*)greek));
+
 
 	// This will not print nicely in your console because consoles do not like UTF-8
 	// But if you redirect to a file and open it in a text editor in UTF-8 - it will show nicely
@@ -106,13 +108,22 @@ int main (int argc, char *argv[]) {
 	//From here we will see the rest of the ehco client implementation:
 
 
+
 	std::cout << cf.toString();
 		//send the string to the server:
 			if (!connectionHandler.sendBytes(encoder.toBytes(cf.toString()),strlen(cf.toString().c_str()))) {
 					std::cout << "Sending connect to server..\n" << std::endl;
 					return 1;
 			}
+			string a;
+			std::string utf8g (encoder.fromBytes(a.c_str()));
 
+			//get the echo back from the server as simple bytes:
+			char greekEcho[256];
+			if (!connectionHandler.getBytes(greekEcho, strlen(utf8g.c_str()))) {
+					std::cout << "Disconnected. Exiting...\n" << std::endl;
+					return 1;
+			}
     while (1) {
         const short bufsize = 1024;
         char buf[bufsize];
