@@ -14,8 +14,18 @@ using namespace std;
 class StompFrame {
 public:
 	StompFrame();
-	virtual string toString() =0;
+	StompFrame(string packetstring);
+	StompFrame(string command,string body);
 	virtual ~StompFrame();
+
+	string getHeaderValue(string);
+	string getCommand();
+	string getBody();
+	void setBody(string );
+	void setHeaderValue(string name,string value);
+
+	virtual string toString() =0;
+
 };
 
 #endif /* STOMPFRAME_H_ */

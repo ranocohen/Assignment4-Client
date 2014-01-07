@@ -18,6 +18,8 @@ string ConnectFrame::toString() {
 				"login:idan \n"
 				"passcode:1234 \n";
 
+	s += '\0';
+
 	return s;
 
 

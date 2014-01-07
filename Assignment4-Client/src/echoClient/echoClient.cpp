@@ -39,7 +39,7 @@ int main (int argc, char *argv[]) {
 
 
 	ConnectFrame cf;
-
+/*
 
 	std::string utf8g (encoder.fromBytes((const char*)greek));
 
@@ -97,11 +97,11 @@ int main (int argc, char *argv[]) {
 		encoder.writeUtf16File("output-utf16.txt", utf16gEcho);
 	}catch(boost::locale::conv::conversion_error & error){
 		std::cerr << "conversion failed" << std::endl;
-	}
+	}*/
 
 	//now you can open these files and see that you can read the Greek letters, and that both files are the same (except for the encoding of course).
 
-	std::cout << "This is the end of the utf8 test. From now on - Standard echo client\n\n";
+	std::cout << cf.toString() << endl;
 
 	//From here we will see the rest of the ehco client implementation:
 
