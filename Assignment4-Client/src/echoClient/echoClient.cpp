@@ -15,28 +15,19 @@ private:
 
 public:
 	UserNetworkingHandle(int number, ConnectionHandler* connectionHandler) :
-			_id(number) {
-	}
+			_id(number) {}
 
-	void run() {
-		while (1) {
-			const short bufsize = 1024;
-			char buf[bufsize];
-			std::cin.getline(buf, bufsize);
-			std::string line(buf);
-			int len = line.length();
-			if (line == "send") {
-				if (!connectionHandler->sendLine(line)) {
+		void run() {
+/*			while (1) {
+				std::string answer;
+				if (!connectionHandler->getLine(answer)) {
 					std::cout << "Disconnected. Exiting...\n" << std::endl;
-					break;
 				}
-				// connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
-				std::cout << "Sent " << len + 1 << " bytes to server"
-						<< std::endl;
-			}
 
+				std::cout << "answer:" << endl;
+				std::cout << answer << endl;
+			}*/
 		}
-	}
 };
 
 class UserCommandHandler {
@@ -47,14 +38,26 @@ private:
 
 public:
 	UserCommandHandler(int number, ConnectionHandler* connectionHandler) :
-			_id(number) {
-	}
+			_id(number) {}
 
-	void run() {
-		for (int i = 0; i < 100; i++) {
-			//std::cout << i << ") Task " << _id << " is working" << std::endl;
+		void run() {
+			while (1) {
+				const short bufsize = 1024;
+				char buf[bufsize];
+				std::cin.getline(buf, bufsize);
+				std::string line(buf);
+				int len = line.length();
+				if (line == "send") {
+					if (!connectionHandler->sendLine(line)) {
+						std::cout << "Disconnected. Exiting...\n" << std::endl;
+						break;
+					}
+					// connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
+					std::cout << "Sent " << len + 1 << " bytes to server"
+							<< std::endl;
+				}
+			}
 		}
-	}
 };
 
 int main(int argc, char *argv[]) {
@@ -88,49 +91,49 @@ int main(int argc, char *argv[]) {
 
 	ConnectFrame cf;
 
-/*	while (1) {
-		std::cout << cf.toString();
-		//send the string to the server:
-		string ans = cf.toString();
-		if (!connectionHandler.sendBytes(cf.toString().c_str(),
-				cf.toString().length())) {
-			std::cout << "Disconnected. Exiting...\n" << std::endl;
-			break;
-		}
-		std::cout << "sent";
+	/*	while (1) {
+	 std::cout << cf.toString();
+	 //send the string to the server:
+	 string ans = cf.toString();
+	 if (!connectionHandler.sendBytes(cf.toString().c_str(),
+	 cf.toString().length())) {
+	 std::cout << "Disconnected. Exiting...\n" << std::endl;
+	 break;
+	 }
+	 std::cout << "sent";
 
-		std::string answer;
+	 std::string answer;
 
-		if (!connectionHandler.getLine(answer)) {
-			std::cout << "Disconnected. Exiting...\n" << std::endl;
-		}
-		std::cout << "ans:" << answer;
+	 if (!connectionHandler.getLine(answer)) {
+	 std::cout << "Disconnected. Exiting...\n" << std::endl;
+	 }
+	 std::cout << "ans:" << answer;
 
-		string a;
-		std::string utf8g(encoder.fromBytes(a.c_str()));
+	 string a;
+	 std::string utf8g(encoder.fromBytes(a.c_str()));
 
-				const short bufsize = 1024;
-		 char buf[bufsize];
-		 std::cin.getline(buf, bufsize);
-		 std::string line(buf);
-		 int len = line.length();
-		 if (!connectionHandler.sendLine(line)) {
-		 std::cout << "Disconnected. Exiting...\n" << std::endl;
-		 break;
-		 }
-		 // connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
-		 std::cout << "Sent " << len + 1 << " bytes to server" << std::endl;
-
-
-		if (!connectionHandler.getLine(answer)) {
-			std::cout << "Disconnected. Exiting...\n" << std::endl;
-		}
-
-		std::cout << "answer:" << endl;
-		std::cout << answer << endl;
+	 const short bufsize = 1024;
+	 char buf[bufsize];
+	 std::cin.getline(buf, bufsize);
+	 std::string line(buf);
+	 int len = line.length();
+	 if (!connectionHandler.sendLine(line)) {
+	 std::cout << "Disconnected. Exiting...\n" << std::endl;
+	 break;
+	 }
+	 // connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
+	 std::cout << "Sent " << len + 1 << " bytes to server" << std::endl;
 
 
-	}*/
+	 if (!connectionHandler.getLine(answer)) {
+	 std::cout << "Disconnected. Exiting...\n" << std::endl;
+	 }
+
+	 std::cout << "answer:" << endl;
+	 std::cout << answer << endl;
+
+
+	 }*/
 	return 0;
 }
 
