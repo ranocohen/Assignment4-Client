@@ -11,9 +11,10 @@ class UserNetworkingHandle {
 private:
 
 	int _id;
+	ConnectionHandler* connectionHandler;
 
 public:
-    UserNetworkingHandle(int number, boost::mutex* mutex) :
+    UserNetworkingHandle(int number,ConnectionHandler* connectionHandler) :
 			_id(number) {
 	}
 
@@ -28,9 +29,10 @@ class UserCommandHandler {
 private:
 
 	int _id;
+	ConnectionHandler* connectionHandler
 
 public:
-	UserCommandHandler(int number, boost::mutex* mutex) :
+	UserCommandHandler(int number,ConnectionHandler* connectionHandler) :
 			_id(number) {
 	}
 
@@ -44,14 +46,6 @@ public:
 int main(int argc, char *argv[]) {
 	boost::mutex mutex;
 
-	UserCommandHandler uch(1, &mutex);
-	UserCommandHandler uch1(2, &mutex);
-	boost::thread th1(&UserCommandHandler::run, &uch);
-	boost::thread th2(&UserCommandHandler::run, &uch1);
-
-	th1.join();
-	th2.join();
-
 	if (argc < 3) {
 		std::cerr << "Usage: " << argv[0] << " host port" << std::endl
 				<< std::endl;
@@ -61,6 +55,15 @@ int main(int argc, char *argv[]) {
 	int port = atoi(argv[2]);
 
 	ConnectionHandler connectionHandler(host, 61613, &mutex);
+
+	UserCommandHandler uch(1,&connectionHandler);
+	UserNetworkingHandle unh(2,&connectionHandler);
+	boost::thread thUCH(&UserCommandHandler::run, &uch);
+	boost::thread thUNH(&UserNetworkingHandle::run, &unh);
+
+	thUCH.join();
+	thUNH.join();
+
 	if (!connectionHandler.connect()) {
 		std::cerr << "(BOOST) Cannot connect to " << host << ":" << port
 				<< std::endl;
