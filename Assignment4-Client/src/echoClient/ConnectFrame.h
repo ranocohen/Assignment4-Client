@@ -16,7 +16,10 @@ using namespace std;
 class ConnectFrame : public StompFrame {
 public:
 	ConnectFrame();
+
 	virtual ~ConnectFrame();
+
+
 };
 
 #endif /* CONNECTFRAME_H_ */

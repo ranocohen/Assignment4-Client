@@ -7,7 +7,7 @@
 #include <boost/thread.hpp>
 
 using boost::asio::ip::tcp;
-
+using namespace std;
 class ConnectionHandler {
 private:
 
@@ -16,7 +16,8 @@ private:
 	const int port_;
 	boost::asio::io_service io_service_;   // Provides core I/O functionality
 	tcp::socket socket_; 
- 
+	string user;
+
 public:
     ConnectionHandler(std::string host, int port, boost::mutex* mutex);
     virtual ~ConnectionHandler();
