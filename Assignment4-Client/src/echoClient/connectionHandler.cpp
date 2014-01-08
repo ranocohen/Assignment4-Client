@@ -8,7 +8,7 @@ using std::cerr;
 using std::endl;
 using std::string;
  
-ConnectionHandler::ConnectionHandler(string host, int port): host_(host), port_(port), io_service_(), socket_(io_service_){}
+ConnectionHandler::ConnectionHandler(string host, int port, boost::mutex* mutex): host_(host), port_(port),_mutex(mutex), io_service_(), socket_(io_service_){}
     
 ConnectionHandler::~ConnectionHandler() {
     close();
@@ -72,6 +72,7 @@ bool ConnectionHandler::sendLine(std::string& line) {
 }
  
 bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
+    boost::mutex::scoped_lock lock(*_mutex);
     char ch;
     // Stop when we encounter the null character. 
     // Notice that the null character is not appended to the frame string.
@@ -88,6 +89,7 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
 }
  
 bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter) {
+    boost::mutex::scoped_lock lock(*_mutex);
 	bool result=sendBytes(frame.c_str(),frame.length());
 	if(!result) return false;
 	return sendBytes(&delimiter,1);

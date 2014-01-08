@@ -7,22 +7,35 @@
 #include <iostream>
 #include <boost/thread.hpp>
 
+class UserNetworkingHandle {
+private:
 
+	int _id;
+
+public:
+    UserNetworkingHandle(int number, boost::mutex* mutex) :
+			_id(number) {
+	}
+
+	void run() {
+		for (int i = 0; i < 100; i++) {
+            std::cout << i << ") Task " << _id << " is working" << std::endl;
+		}
+	}
+};
 
 class UserCommandHandler {
 private:
 
 	int _id;
-    boost::mutex * _mutex;
 
 public:
 	UserCommandHandler(int number, boost::mutex* mutex) :
-			_id(number), _mutex(mutex) {
+			_id(number) {
 	}
 
 	void run() {
 		for (int i = 0; i < 100; i++) {
-            boost::mutex::scoped_lock lock(*_mutex);
             std::cout << i << ") Task " << _id << " is working" << std::endl;
 		}
 	}
@@ -47,7 +60,7 @@ int main(int argc, char *argv[]) {
 	std::string host = argv[1];
 	int port = atoi(argv[2]);
 
-	ConnectionHandler connectionHandler(host, 61613);
+	ConnectionHandler connectionHandler(host, 61613, &mutex);
 	if (!connectionHandler.connect()) {
 		std::cerr << "(BOOST) Cannot connect to " << host << ":" << port
 				<< std::endl;
