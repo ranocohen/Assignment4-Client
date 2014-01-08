@@ -16,7 +16,8 @@ using namespace std;
 class ConnectFrame : public StompFrame {
 public:
 	ConnectFrame();
-
+	void set_user(string user);
+	void set_code(string code);
 	virtual ~ConnectFrame();
 
 

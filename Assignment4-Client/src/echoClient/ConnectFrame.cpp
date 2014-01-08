@@ -6,9 +6,10 @@
  */
 
 #include "ConnectFrame.h"
+#include <string>
 using namespace std;
-ConnectFrame::ConnectFrame() {
-	// TODO Auto-generated constructor stub
+ConnectFrame::ConnectFrame() : StompFrame("CONNECT","") {
+
 
 }
 
@@ -16,3 +17,10 @@ ConnectFrame::~ConnectFrame() {
 	// TODO Auto-generated destructor stub
 }
 
+void ConnectFrame::set_user(string user) {
+	addHeader("login",user);
+}
+
+void ConnectFrame::set_code(string code) {
+	addHeader("passcode",code);
+}

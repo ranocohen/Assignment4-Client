@@ -11,12 +11,17 @@ StompFrame::StompFrame() {
 
 
 }
-
+StompFrame::StompFrame(string command,string body) {
+	this->command = command;
+	this->body = body;
+}
 StompFrame::~StompFrame() {
 	// TODO Auto-generated destructor stub
 }
+
+
 void StompFrame::addHeader(string name,string value) {
-	//headers.insert(name,value);
+	headers.insert(std::make_pair(name,value));
 }
 
 string StompFrame::toString() {

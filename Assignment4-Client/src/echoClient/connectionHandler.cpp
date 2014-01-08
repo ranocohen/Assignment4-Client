@@ -72,7 +72,7 @@ bool ConnectionHandler::sendLine(std::string& line) {
 }
  
 bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
-    boost::mutex::scoped_lock lock(*_mutex);
+//   boost::mutex::scoped_lock lock(*_mutex);
     char ch;
     // Stop when we encounter the null character. 
     // Notice that the null character is not appended to the frame string.

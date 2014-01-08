@@ -6,7 +6,7 @@
 #include "ConnectFrame.h"
 #include <iostream>
 #include <boost/thread.hpp>
-
+#include "CommandParser.h"
 class UserNetworkingHandle {
 private:
 
@@ -14,11 +14,11 @@ private:
 	ConnectionHandler* connectionHandler;
 
 public:
-	UserNetworkingHandle(int number, ConnectionHandler* connectionHandler) :
-			_id(number) {}
+	UserNetworkingHandle(int number, ConnectionHandler* cH) :
+		_id(number) , connectionHandler(cH){}
 
 		void run() {
-/*			while (1) {
+			while (1) {
 				std::string answer;
 				if (!connectionHandler->getLine(answer)) {
 					std::cout << "Disconnected. Exiting...\n" << std::endl;
@@ -26,7 +26,7 @@ public:
 
 				std::cout << "answer:" << endl;
 				std::cout << answer << endl;
-			}*/
+			}
 		}
 };
 
@@ -37,18 +37,22 @@ private:
 	ConnectionHandler* connectionHandler;
 
 public:
-	UserCommandHandler(int number, ConnectionHandler* connectionHandler) :
-			_id(number) {}
-
+	UserCommandHandler(int number, ConnectionHandler* cH) :
+			_id(number) , connectionHandler(cH){}
+	std::string line;
 		void run() {
-			while (1) {
+			while (line!="exit") {
 				const short bufsize = 1024;
 				char buf[bufsize];
 				std::cin.getline(buf, bufsize);
 				std::string line(buf);
 				int len = line.length();
-				if (line == "send") {
-					if (!connectionHandler->sendLine(line)) {
+
+
+					CommandParser parser(line);
+					StompFrame sf = parser.getStompFrame();
+					string toSend = sf.toString();
+					if (!connectionHandler->sendLine(toSend)) {
 						std::cout << "Disconnected. Exiting...\n" << std::endl;
 						break;
 					}
@@ -56,7 +60,7 @@ public:
 					std::cout << "Sent " << len + 1 << " bytes to server"
 							<< std::endl;
 				}
-			}
+
 		}
 };
 
@@ -72,7 +76,11 @@ int main(int argc, char *argv[]) {
 	int port = atoi(argv[2]);
 
 	ConnectionHandler connectionHandler(host, 61613, &mutex);
-
+	if (!connectionHandler.connect()) {
+			std::cerr << "(BOOST) Cannot connect to " << host << ":" << port
+					<< std::endl;
+			return 1;
+		}
 	UserCommandHandler uch(1, &connectionHandler);
 	UserNetworkingHandle unh(2, &connectionHandler);
 	boost::thread thUCH(&UserCommandHandler::run, &uch);
@@ -80,16 +88,15 @@ int main(int argc, char *argv[]) {
 
 	thUCH.join();
 	thUNH.join();
-
-	if (!connectionHandler.connect()) {
-		std::cerr << "(BOOST) Cannot connect to " << host << ":" << port
-				<< std::endl;
-		return 1;
-	}
-
+	string d;
+	d="dddd";
+	 if (!connectionHandler.sendLine(d)) {
+		 std::cout << "Disconnected. Exiting...\n" << std::endl;
+	 }
+	 cout << "ddd";
 	Encoder encoder;
 
-	ConnectFrame cf;
+
 
 	/*	while (1) {
 	 std::cout << cf.toString();
