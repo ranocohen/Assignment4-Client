@@ -8,6 +8,7 @@
 #ifndef STOMPFRAME_H_
 #define STOMPFRAME_H_
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -26,6 +27,10 @@ public:
 
 	virtual string toString() =0;
 
+
+private:
+	//header will be stored in map (name,value)
+	std::map<std::string ,std::string> headers_;
 };
 
 #endif /* STOMPFRAME_H_ */

@@ -7,9 +7,7 @@
 #include <iostream>
 #include <boost/thread.hpp>
 
-void run() {
-	std::cout << "Disconnected. Exiting...\n" << std::endl;
-}
+
 
 class UserCommandHandler {
 private:
