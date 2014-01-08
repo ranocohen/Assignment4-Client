@@ -13,7 +13,8 @@ int main (int argc, char *argv[]) {
         return -1;
     }
     std::string host = argv[1];
-    int port = atoi(argv[2]);
+    //int port = atoi(argv[2]);
+    int port = 1234;
 
     ConnectionHandler connectionHandler(host, port);
     if (!connectionHandler.connect()) {
@@ -40,75 +41,6 @@ int main (int argc, char *argv[]) {
 
 
 	ConnectFrame cf;
-/*
-
-=======
-
-	/*
->>>>>>> branch 'master' of https://github.com/ranocohen/Assignment4-Client.git
-	std::string utf8g (encoder.fromBytes((const char*)greek));
-
-
-	// This will not print nicely in your console because consoles do not like UTF-8
-	// But if you redirect to a file and open it in a text editor in UTF-8 - it will show nicely
-	// for example, in Notepad it shows nicely in Greek.
-	std::cout << std::endl << "BOOST Greek string " << utf8g;
-	// Get the string length in number of character (counts the UTF-8 characters in the string and not the bytes)
-	int lg = (int)utf8::distance(utf8g.begin(), utf8g.end());
-	std::cout << "Length of greek is " << lg << " UTF-8 chars in " << strlen(utf8g.c_str()) << " bytes" << std::endl;
-
-	// This conversion will fail because there are no ASCII characters that
-	// correspond to Greek ones.  It will print '?' for each unknown character.
-	try{
-		std::cout << "confused greek string " << encoder.fromUtf8ToAscii(utf8g) << std::endl << std::endl;
-	}catch(boost::locale::conv::conversion_error & error){
-		std::cerr << "conversion failed" << std::endl << std::endl;
-	}
-
-	//send the string to the server:
-	if (!connectionHandler.sendBytes(encoder.toBytes(utf8g),strlen(utf8g.c_str()))) {
-			std::cout << "Disconnected. Exiting...\n" << std::endl;
-			return 1;
-	}
-
-	//get the echo back from the server as simple bytes:
-	char greekEcho[256];
-	if (!connectionHandler.getBytes(greekEcho, strlen(utf8g.c_str()))) {
-			std::cout << "Disconnected. Exiting...\n" << std::endl;
-			return 1;
-	}
-
-	// A C string must end with a 0 char delimiter.  When we filled the answer buffer from the socket
-	// we filled up to the \n char - we must make sure now that a 0 char is also present. So we replace \n with 0.
-	// strlen(answer) counts the chars until the 0 char is found.
-	greekEcho[strlen(utf8g.c_str())]='\0';
-
-	// This will not print nicely in your console because consoles do not like UTF-8
-	// But if you redirect to a file and open it in a text editor in UTF-8 - it will show nicely
-	// for example, in Notepad it shows nicely in Greek.
-	std::cout << "Greek echo string " << greekEcho;
-
-	std::string utf8gEcho((const char*)greekEcho);
-
-	// Get the string length in number of character (counts the UTF-8 characters in the string and not the bytes)
-	lg = (int)utf8::distance(utf8gEcho.begin(), utf8gEcho.end());
-	std::cout << "Length of greek echo is " << lg << " UTF-8 chars in " << strlen(utf8gEcho.c_str()) << " bytes" << std::endl << std::endl;
-
-
-	//write the utf8 string to a file so that we can check it in a text editor
-	encoder.writeUtf8File("output-utf8.txt", utf8gEcho);
-	// Convert utf8 string to a utf-16 string and write it to a file so that we can check it in a text editor
-	try{
-		utf16string utf16gEcho(encoder.fromUtf8ToUtf16(utf8gEcho));
-		encoder.writeUtf16File("output-utf16.txt", utf16gEcho);
-	}catch(boost::locale::conv::conversion_error & error){
-		std::cerr << "conversion failed" << std::endl;
-	}*/
-
-	//now you can open these files and see that you can read the Greek letters, and that both files are the same (except for the encoding of course).
-
-	//From here we will see the rest of the ehco client implementation:
-
 
 
 	//std::cout << cf.toString();

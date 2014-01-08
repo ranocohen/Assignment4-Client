@@ -12,13 +12,16 @@ ConnectFrame::ConnectFrame() {
 
 }
 string ConnectFrame::toString() {
-	string s = "CONNECT \n"
-				"accept-version:1.2 \n"
-				"host:127.0.0.1 \n"
-				"login:idan \n"
-				"passcode:1234 \n";
+/*	string s =  "CONNECT "
+				"accept-version:1.2 "
+				"host:127.0.0.1 "
+				"login:idan "
+				"passcode:1234 ";*/
 
-	s += '\0';
+	string s = "hello";
+
+	char c = 0;
+	s += c;
 
 	return s;
 
