@@ -9,7 +9,8 @@
 #define CONNECTFRAME_H_
 #include "StompFrame.h"
 #include <string>
-
+#include <sstream>
+#include <iostream>
 using namespace std;
 
 class ConnectFrame : StompFrame {

@@ -12,14 +12,17 @@ ConnectFrame::ConnectFrame() {
 
 }
 string ConnectFrame::toString() {
-	string s = "@CONNECT \n"
-				"accept-version:1.2 \n"
-				"host:127.0.0.1 \n"
-				"login:idan \n"
-				"passcode:1234 \n";
 
-	return s;
 
+	std::stringstream ss;
+	ss<<"CONNECT"<<"\n";
+	ss<<"login:idan\n";
+	ss<<'\n'<<'\0';
+/*
+		ss<<'login'<<':'<<'idan'<<'\n';
+
+	ss<<'\n'<<'\n'<<'\0';*/
+	return ss.str();
 
 }
 ConnectFrame::~ConnectFrame() {
