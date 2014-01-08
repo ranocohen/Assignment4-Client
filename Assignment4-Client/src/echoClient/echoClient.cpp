@@ -11,26 +11,33 @@
 
 class UserCommandHandler {
 private:
+
 	int _id;
+    boost::mutex * _mutex;
+
 public:
-	UserCommandHandler(int number) :
-			_id(number) {
+	UserCommandHandler(int number, boost::mutex* mutex) :
+			_id(number), _mutex(mutex) {
 	}
 
 	void run() {
 		for (int i = 0; i < 100; i++) {
-			//std::cout << i << ") Task " << _id << " is working" << std::endl;
+            boost::mutex::scoped_lock lock(*_mutex);
+            std::cout << i << ") Task " << _id << " is working" << std::endl;
 		}
-		boost::this_thread::yield(); //Gives up the remainder of the current thread's time slice, to allow other threads to run.
 	}
 };
 
 int main(int argc, char *argv[]) {
+	boost::mutex mutex;
 
-
-	UserCommandHandler uch(1);
+	UserCommandHandler uch(1, &mutex);
+	UserCommandHandler uch1(2, &mutex);
 	boost::thread th1(&UserCommandHandler::run, &uch);
+	boost::thread th2(&UserCommandHandler::run, &uch1);
+
 	th1.join();
+	th2.join();
 
 	if (argc < 3) {
 		std::cerr << "Usage: " << argv[0] << " host port" << std::endl
