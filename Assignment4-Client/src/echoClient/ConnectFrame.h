@@ -13,10 +13,9 @@
 #include <iostream>
 using namespace std;
 
-class ConnectFrame : StompFrame {
+class ConnectFrame : public StompFrame {
 public:
 	ConnectFrame();
-	string toString();
 	virtual ~ConnectFrame();
 };
 

@@ -1,15 +1,13 @@
 /*
  * StompFrame.h
- *
- *  Created on: Jan 6, 2014
- *      Author: idanakav
  */
 
 #ifndef STOMPFRAME_H_
 #define STOMPFRAME_H_
 #include <string>
 #include <map>
-
+#include <sstream>
+#include <iostream>
 using namespace std;
 
 class StompFrame {
@@ -23,14 +21,16 @@ public:
 	string getCommand();
 	string getBody();
 	void setBody(string );
-	void setHeaderValue(string name,string value);
-
-	virtual string toString() =0;
+	void addHeader(string name,string value);
+	string toString();
 
 
 private:
 	//header will be stored in map (name,value)
-	std::map<std::string ,std::string> headers_;
+	std::map<std::string ,std::string> headers;
+	string command;
+	string body;
+	string packet_string;
 };
 
 #endif /* STOMPFRAME_H_ */

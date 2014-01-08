@@ -8,11 +8,25 @@
 #include "StompFrame.h"
 
 StompFrame::StompFrame() {
-	// TODO Auto-generated constructor stub
+
 
 }
 
 StompFrame::~StompFrame() {
 	// TODO Auto-generated destructor stub
+}
+void StompFrame::addHeader(string name,string value) {
+	//headers.insert(name,value);
+}
+
+string StompFrame::toString() {
+	std::stringstream ss;
+	ss<<command<<'\n';
+	for(std::map<std::string,std::string>::iterator it=headers.begin();it!=headers.end();++it)
+	{
+		ss<<it->first<<':'<<it->second<<'\n';
+	}
+	ss<<'\n'<<'\n'<<body<<'\0';
+	return ss.str();
 }
 
