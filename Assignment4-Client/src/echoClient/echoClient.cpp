@@ -7,37 +7,58 @@
 #include <iostream>
 #include <boost/thread.hpp>
 
+class UserNetworkingHandle {
+private:
 
+	int _id;
+	ConnectionHandler* connectionHandler;
+
+public:
+	UserNetworkingHandle(int number, ConnectionHandler* connectionHandler) :
+			_id(number) {
+	}
+
+	void run() {
+		while (1) {
+			const short bufsize = 1024;
+			char buf[bufsize];
+			std::cin.getline(buf, bufsize);
+			std::string line(buf);
+			int len = line.length();
+			if (line == "send") {
+				if (!connectionHandler->sendLine(line)) {
+					std::cout << "Disconnected. Exiting...\n" << std::endl;
+					break;
+				}
+				// connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
+				std::cout << "Sent " << len + 1 << " bytes to server"
+						<< std::endl;
+			}
+
+		}
+	}
+};
 
 class UserCommandHandler {
 private:
 
 	int _id;
-    boost::mutex * _mutex;
+	ConnectionHandler* connectionHandler;
 
 public:
-	UserCommandHandler(int number, boost::mutex* mutex) :
-			_id(number), _mutex(mutex) {
+	UserCommandHandler(int number, ConnectionHandler* connectionHandler) :
+			_id(number) {
 	}
 
 	void run() {
 		for (int i = 0; i < 100; i++) {
-            boost::mutex::scoped_lock lock(*_mutex);
-            std::cout << i << ") Task " << _id << " is working" << std::endl;
+			//std::cout << i << ") Task " << _id << " is working" << std::endl;
 		}
 	}
 };
 
 int main(int argc, char *argv[]) {
 	boost::mutex mutex;
-
-	UserCommandHandler uch(1, &mutex);
-	UserCommandHandler uch1(2, &mutex);
-	boost::thread th1(&UserCommandHandler::run, &uch);
-	boost::thread th2(&UserCommandHandler::run, &uch1);
-
-	th1.join();
-	th2.join();
 
 	if (argc < 3) {
 		std::cerr << "Usage: " << argv[0] << " host port" << std::endl
@@ -47,7 +68,16 @@ int main(int argc, char *argv[]) {
 	std::string host = argv[1];
 	int port = atoi(argv[2]);
 
-	ConnectionHandler connectionHandler(host, 61613);
+	ConnectionHandler connectionHandler(host, 61613, &mutex);
+
+	UserCommandHandler uch(1, &connectionHandler);
+	UserNetworkingHandle unh(2, &connectionHandler);
+	boost::thread thUCH(&UserCommandHandler::run, &uch);
+	boost::thread thUNH(&UserNetworkingHandle::run, &unh);
+
+	thUCH.join();
+	thUNH.join();
+
 	if (!connectionHandler.connect()) {
 		std::cerr << "(BOOST) Cannot connect to " << host << ":" << port
 				<< std::endl;
@@ -58,8 +88,7 @@ int main(int argc, char *argv[]) {
 
 	ConnectFrame cf;
 
-
-	while (1) {
+/*	while (1) {
 		std::cout << cf.toString();
 		//send the string to the server:
 		string ans = cf.toString();
@@ -80,17 +109,18 @@ int main(int argc, char *argv[]) {
 		string a;
 		std::string utf8g(encoder.fromBytes(a.c_str()));
 
-		const short bufsize = 1024;
-		char buf[bufsize];
-		std::cin.getline(buf, bufsize);
-		std::string line(buf);
-		int len = line.length();
-		if (!connectionHandler.sendLine(line)) {
-			std::cout << "Disconnected. Exiting...\n" << std::endl;
-			break;
-		}
-		// connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
-		std::cout << "Sent " << len + 1 << " bytes to server" << std::endl;
+				const short bufsize = 1024;
+		 char buf[bufsize];
+		 std::cin.getline(buf, bufsize);
+		 std::string line(buf);
+		 int len = line.length();
+		 if (!connectionHandler.sendLine(line)) {
+		 std::cout << "Disconnected. Exiting...\n" << std::endl;
+		 break;
+		 }
+		 // connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
+		 std::cout << "Sent " << len + 1 << " bytes to server" << std::endl;
+
 
 		if (!connectionHandler.getLine(answer)) {
 			std::cout << "Disconnected. Exiting...\n" << std::endl;
@@ -98,8 +128,9 @@ int main(int argc, char *argv[]) {
 
 		std::cout << "answer:" << endl;
 		std::cout << answer << endl;
-		;
-	}
+
+
+	}*/
 	return 0;
 }
 

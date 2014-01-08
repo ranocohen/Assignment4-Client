@@ -4,18 +4,21 @@
 #include <string>
 #include <iostream>
 #include <boost/asio.hpp>
+#include <boost/thread.hpp>
 
 using boost::asio::ip::tcp;
 
 class ConnectionHandler {
 private:
+
+    boost::mutex * _mutex;
 	const std::string host_;
 	const int port_;
 	boost::asio::io_service io_service_;   // Provides core I/O functionality
 	tcp::socket socket_; 
  
 public:
-    ConnectionHandler(std::string host, int port);
+    ConnectionHandler(std::string host, int port, boost::mutex* mutex);
     virtual ~ConnectionHandler();
  
     // Connect to the remote machine
