@@ -12,7 +12,7 @@ ConnectFrame::ConnectFrame() {
 
 }
 string ConnectFrame::toString() {
-	string s = "@CONNECT \n"
+	string s = "CONNECT \n"
 				"accept-version:1.2 \n"
 				"host:127.0.0.1 \n"
 				"login:idan \n"

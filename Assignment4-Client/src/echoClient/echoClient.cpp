@@ -40,7 +40,6 @@ int main (int argc, char *argv[]) {
 
 
 	ConnectFrame cf;
-<<<<<<< HEAD
 /*
 
 =======
@@ -108,13 +107,11 @@ int main (int argc, char *argv[]) {
 
 	//now you can open these files and see that you can read the Greek letters, and that both files are the same (except for the encoding of course).
 
-	std::cout << cf.toString() << endl;
-
 	//From here we will see the rest of the ehco client implementation:
 
 
 
-	std::cout << cf.toString();
+	//std::cout << cf.toString();
 		//send the string to the server:
 			if (!connectionHandler.sendBytes(encoder.toBytes(cf.toString()),strlen(cf.toString().c_str()))) {
 					std::cout << "Sending connect to server..\n" << std::endl;
