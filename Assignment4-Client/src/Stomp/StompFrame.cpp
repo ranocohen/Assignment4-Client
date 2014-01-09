@@ -18,6 +18,9 @@ StompFrame::StompFrame(string command,string body) {
 StompFrame::~StompFrame() {
 	// TODO Auto-generated destructor stub
 }
+void StompFrame::setBody(string body) {
+	this->body = body;
+}
 
 
 void StompFrame::addHeader(string name,string value) {
