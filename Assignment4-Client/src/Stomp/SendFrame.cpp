@@ -16,9 +16,6 @@ SendFrame::~SendFrame() {
 	// TODO Auto-generated destructor stub
 }
 
-void SendFrame::set_body(string message) {
-	setBody(message);
-}
 
 void SendFrame::set_destination(string dest) {
 	addHeader("destination",dest);
