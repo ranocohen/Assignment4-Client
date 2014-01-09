@@ -17,7 +17,7 @@ SendFrame::~SendFrame() {
 }
 
 void SendFrame::set_body(string message) {
-	setBody(message);
+	//setBody(message);
 }
 
 void SendFrame::set_destination(string dest) {
