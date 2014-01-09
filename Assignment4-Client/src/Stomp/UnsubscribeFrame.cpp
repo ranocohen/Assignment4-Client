@@ -7,7 +7,7 @@
 
 #include "../headers/stomp/UnsubscribeFrame.h"
 
-UnsubscribeFrame::UnsubscribeFrame() {
+UnsubscribeFrame::UnsubscribeFrame(): StompFrame("UNSUBSCRIBE","") {
 	// TODO Auto-generated constructor stub
 
 }

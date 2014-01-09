@@ -7,7 +7,7 @@
 
 #include "../headers/stomp/SubscribeFrame.h"
 
-SubscribeFrame::SubscribeFrame() {
+SubscribeFrame::SubscribeFrame() : StompFrame("SUBSCRIBE",""){
 	// TODO Auto-generated constructor stub
 
 }
