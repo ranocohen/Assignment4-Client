@@ -34,7 +34,13 @@ StompFrame CommandParser::getStompFrame() {
 		UnsubscribeFrame usf;
 		usf.set_id("1234"); //TODO need to generate unique
 		cout << usf.toString() << endl;
-
+		return usf;
+	}else if (parameters.at(0) == "tweet") {
+		SendFrame sf;
+		sf.setBody(parameters.at(1));
+		sf.set_destination("/topic/user"); //TODO implement user "channel" (=profile tweets)
+		cout << sf.toString() << endl;
+		return sf;
 	}
 	StompFrame sf;
 	return sf;
