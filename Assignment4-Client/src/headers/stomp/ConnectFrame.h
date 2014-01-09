@@ -13,7 +13,7 @@
 #include <iostream>
 using namespace std;
 
-class ConnectFrame : public StompFrame {
+class ConnectFrame: public StompFrame {
 public:
 	ConnectFrame();
 	void set_user(string user);
