@@ -20,7 +20,7 @@ public:
 		void run() {
 			while (1) {
 				std::string answer;
-				if (!connectionHandler->getLine(answer)) {
+				if (!connectionHandler->getFrameAscii(answer,'\0')) {
 					std::cout << "Disconnected. Exiting...\n" << std::endl;
 				}
 				std::cout << answer << endl;
