@@ -45,7 +45,7 @@ public:
 				std::cin.getline(buf, bufsize);
 				std::string line(buf);
 				int len = line.length();
-					CommandParser parser(line);
+				/*	CommandParser parser(line);
 					StompFrame* sf = parser.getStompFrame();
 					// Set the host
 					sf->apply(connectionHandler);
@@ -53,7 +53,7 @@ public:
 					if (!connectionHandler->sendLine(toSend)) {
 						std::cout << "Disconnected. Exiting...\n" << std::endl;
 						break;
-					}
+					}*/
 					// connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
 					std::cout << "Sent " << len + 1 << " bytes to server"
 							<< std::endl;
