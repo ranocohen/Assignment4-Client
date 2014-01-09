@@ -23,8 +23,6 @@ public:
 				if (!connectionHandler->getLine(answer)) {
 					std::cout << "Disconnected. Exiting...\n" << std::endl;
 				}
-
-				std::cout << "answer:" << endl;
 				std::cout << answer << endl;
 			}
 		}
