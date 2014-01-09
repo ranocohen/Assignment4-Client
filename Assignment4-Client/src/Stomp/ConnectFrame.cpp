@@ -5,9 +5,10 @@
  *      Author: idanakav
  */
 
-#include "ConnectFrame.h"
+#include "../headers/stomp/ConnectFrame.h"
 #include <string>
 using namespace std;
+
 ConnectFrame::ConnectFrame() : StompFrame("CONNECT","") {
 
 

@@ -5,7 +5,7 @@
  *      Author: idanakav
  */
 
-#include "StompFrame.h"
+#include "../headers/stomp/StompFrame.h"
 
 StompFrame::StompFrame() {
 

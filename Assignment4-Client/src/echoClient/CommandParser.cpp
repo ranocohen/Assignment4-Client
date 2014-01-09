@@ -6,14 +6,12 @@
  */
 
 
-#include "ConnectFrame.h"
-#include "CommandParser.h"
+#include "../headers/stomp/ConnectFrame.h"
+#include "../headers/CommandParser.h"
 #include <boost/algorithm/string.hpp>
 #include <vector>
 CommandParser::CommandParser(string command) {
 	this->command = command;
-
-
 }
 StompFrame CommandParser::getStompFrame() {
 	std::vector<std::string> parameters;
@@ -25,6 +23,8 @@ StompFrame CommandParser::getStompFrame() {
 			cf.set_code(parameters.at(4));
 			cout << cf.toString();
 			return cf;
+		}else if(parameters.at(0)=="follow") {
+
 		}
 		StompFrame sf;
 		return sf;

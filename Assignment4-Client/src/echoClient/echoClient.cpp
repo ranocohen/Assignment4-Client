@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include <boost/locale.hpp>
-#include "connectionHandler.h"
+#include "../headers/connectionHandler.h"
 #include "../encoder/utf8.h"
 #include "../encoder/encoder.h"
-#include "ConnectFrame.h"
+#include "../headers/stomp/ConnectFrame.h"
 #include <iostream>
 #include <boost/thread.hpp>
-#include "CommandParser.h"
+#include "../headers/CommandParser.h"
 class UserNetworkingHandle {
 private:
 
@@ -47,8 +47,6 @@ public:
 				std::cin.getline(buf, bufsize);
 				std::string line(buf);
 				int len = line.length();
-
-
 					CommandParser parser(line);
 					StompFrame sf = parser.getStompFrame();
 					string toSend = sf.toString();

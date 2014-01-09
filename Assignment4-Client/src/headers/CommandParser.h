@@ -9,7 +9,7 @@
 #define COMMANDPARSER_H_
 
 #include <string>
-#include "StompFrame.h"
+#include "stomp/StompFrame.h"
 using namespace std;
 class CommandParser {
 public:
