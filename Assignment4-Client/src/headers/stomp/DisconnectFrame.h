@@ -15,6 +15,7 @@ class DisconnectFrame: public StompFrame {
 		DisconnectFrame();
 		void set_id(string id);
 		virtual ~DisconnectFrame();
+		virtual void apply(ConnectionHandler* cHandler);
 	};
 
 #endif /* DISCONNECTFRAME_H_ */

@@ -46,8 +46,10 @@ public:
 				std::string line(buf);
 				int len = line.length();
 					CommandParser parser(line);
-					StompFrame sf = parser.getStompFrame();
-					string toSend = sf.toString();
+					StompFrame* sf = parser.getStompFrame();
+					// Set the host
+					sf->apply(connectionHandler);
+					string toSend = sf->toString();
 					if (!connectionHandler->sendLine(toSend)) {
 						std::cout << "Disconnected. Exiting...\n" << std::endl;
 						break;
@@ -68,15 +70,10 @@ int main(int argc, char *argv[]) {
 				<< std::endl;
 		return -1;
 	}
-	std::string host = argv[1];
-	int port = atoi(argv[2]);
 
-	ConnectionHandler connectionHandler(host, 61613, &mutex);
-	if (!connectionHandler.connect()) {
-			std::cerr << "(BOOST) Cannot connect to " << host << ":" << port
-					<< std::endl;
-			return 1;
-		}
+
+	ConnectionHandler connectionHandler(&mutex);
+
 	UserCommandHandler uch(1, &connectionHandler);
 	UserNetworkingHandle unh(2, &connectionHandler);
 	boost::thread thUCH(&UserCommandHandler::run, &uch);

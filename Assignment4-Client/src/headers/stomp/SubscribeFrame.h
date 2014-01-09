@@ -16,7 +16,7 @@ public:
 	void set_destination(string user);
 	void set_id(string code);
 	virtual ~SubscribeFrame();
-
+	virtual void apply(ConnectionHandler* cHandler);
 };
 
 #endif /* SUBSCRIBEFRAME_H_ */

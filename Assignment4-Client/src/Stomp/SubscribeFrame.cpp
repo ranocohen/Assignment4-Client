@@ -23,3 +23,4 @@ void SubscribeFrame::set_destination(string dest) {
 void  SubscribeFrame::set_id(string id) {
 	addHeader("id",id);
 }
+void SubscribeFrame::apply(ConnectionHandler* cHandler) {}

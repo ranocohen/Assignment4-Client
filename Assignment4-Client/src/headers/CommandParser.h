@@ -14,7 +14,7 @@ using namespace std;
 class CommandParser {
 public:
 	CommandParser(string command);
-	StompFrame getStompFrame();
+	StompFrame* getStompFrame();
 	virtual ~CommandParser();
 
 private:

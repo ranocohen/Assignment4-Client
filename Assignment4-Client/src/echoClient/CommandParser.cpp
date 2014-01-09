@@ -15,36 +15,36 @@
 CommandParser::CommandParser(string command) {
 	this->command = command;
 }
-StompFrame CommandParser::getStompFrame() {
+StompFrame* CommandParser::getStompFrame() {
 	std::vector<std::string> parameters;
 	boost::split(parameters, command, boost::is_any_of(" "));
 
 	if (parameters.at(0) == "login") {
-		ConnectFrame cf;
-		cf.set_user(parameters.at(3));
-		cf.set_code(parameters.at(4));
-		cout << cf.toString() << endl;
+		ConnectFrame* cf = new ConnectFrame();
+		cf->set_user(parameters.at(3));
+		cf->set_code(parameters.at(4));
+		cout << cf->toString() << endl;
 		return cf;
 	} else if (parameters.at(0) == "follow") {
-		SubscribeFrame sf;
-		sf.set_id("1234"); //TODO need to generate unique
-		sf.set_destination(parameters.at(1)); //user
-		cout << sf.toString() << endl;
+		SubscribeFrame* sf = new SubscribeFrame();
+		sf->set_id("1234"); //TODO need to generate unique
+		sf->set_destination(parameters.at(1)); //user
+		cout << sf->toString() << endl;
 		return sf;
 	} else if (parameters.at(0) == "unfollow") {
-		UnsubscribeFrame usf;
-		usf.set_id("1234"); //TODO need to generate unique
-		cout << usf.toString() << endl;
+		UnsubscribeFrame* usf = new UnsubscribeFrame();
+		usf->set_id("1234"); //TODO need to generate unique
+		cout << usf->toString() << endl;
 		return usf;
 	}else if (parameters.at(0) == "tweet") {
-		SendFrame mf;
-		mf.setBody(parameters.at(1));
-		mf.set_destination("/topic/user"); //TODO implement user "channel" (=profile tweets)
-		cout << mf.toString() << endl;
+		SendFrame* mf = new SendFrame();
+		mf->setBody(parameters.at(1));
+		mf->set_destination("/topic/user"); //TODO implement user "channel" (=profile tweets)
+		cout << mf->toString() << endl;
 		return mf;
 	}
-	StompFrame sf;
-	return sf;
+	return NULL;
+
 }
 CommandParser::~CommandParser() {
 }

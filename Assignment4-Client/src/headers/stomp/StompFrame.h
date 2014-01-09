@@ -8,6 +8,7 @@
 #include <map>
 #include <sstream>
 #include <iostream>
+#include "../connectionHandler.h"
 using namespace std;
 
 class StompFrame {
@@ -23,7 +24,7 @@ public:
 	void setBody(string message);
 	void addHeader(string name,string value);
 	string toString();
-
+	virtual void apply(ConnectionHandler* cHandler)=0;
 
 private:
 	//header will be stored in map (name,value)

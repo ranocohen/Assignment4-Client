@@ -11,6 +11,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include "../connectionHandler.h"
 using namespace std;
 
 class ConnectFrame: public StompFrame {
@@ -18,8 +19,10 @@ public:
 	ConnectFrame();
 	void set_user(string user);
 	void set_code(string code);
+
 	virtual ~ConnectFrame();
 
+	virtual void apply(ConnectionHandler* cHandler);
 
 };
 

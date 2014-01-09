@@ -25,3 +25,9 @@ void ConnectFrame::set_user(string user) {
 void ConnectFrame::set_code(string code) {
 	addHeader("passcode",code);
 }
+void ConnectFrame::apply(ConnectionHandler* cHandler) {
+
+	    if (!cHandler->connect()) {
+	        std::cerr << "Could not connect to server. Check your Internet connection, IP and port." << std::endl;
+	    }
+}

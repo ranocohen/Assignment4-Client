@@ -18,5 +18,8 @@ UnsubscribeFrame::~UnsubscribeFrame() {
 
 void UnsubscribeFrame::set_id(string id) {
 	addHeader("id", id);
+
+
 }
 
+void UnsubscribeFrame::apply(ConnectionHandler* cHandler) {}

@@ -15,6 +15,7 @@ public:
 	UnsubscribeFrame();
 	void set_id(string id);
 	virtual ~UnsubscribeFrame();
+	virtual void apply(ConnectionHandler* cHandler);
 };
 
 #endif /* UNSUBSCRIBEFRAME_H_ */

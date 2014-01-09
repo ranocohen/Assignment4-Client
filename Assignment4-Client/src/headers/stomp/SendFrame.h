@@ -16,6 +16,7 @@ public:
 	void set_body(string id);
 	void set_destination(string id);
 	virtual ~SendFrame();
+	virtual void apply(ConnectionHandler* cHandler);
 };
 
 #endif /* SENDFRAME_H_ */
