@@ -7,7 +7,7 @@
 
 #include "../headers/stomp/DisconnectFrame.h"
 
-DisconnectFrame::DisconnectFrame() {
+DisconnectFrame::DisconnectFrame() : StompFrame("DISCONNECT",""){
 	// TODO Auto-generated constructor stub
 
 }

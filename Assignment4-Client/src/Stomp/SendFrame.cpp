@@ -7,7 +7,7 @@
 
 #include "../headers/stomp/SendFrame.h"
 
-SendFrame::SendFrame() {
+SendFrame::SendFrame() : StompFrame("SEND",""){
 	// TODO Auto-generated constructor stub
 
 }

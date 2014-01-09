@@ -8,6 +8,7 @@
 #include "../headers/stomp/ConnectFrame.h"
 #include "../headers/stomp/SubscribeFrame.h"
 #include "../headers/stomp/UnsubscribeFrame.h"
+#include "../headers/stomp/SendFrame.h"
 #include "../headers/CommandParser.h"
 #include <boost/algorithm/string.hpp>
 #include <vector>
@@ -34,7 +35,13 @@ StompFrame CommandParser::getStompFrame() {
 		UnsubscribeFrame usf;
 		usf.set_id("1234"); //TODO need to generate unique
 		cout << usf.toString() << endl;
-
+		return usf;
+	}else if (parameters.at(0) == "tweet") {
+		SendFrame mf;
+		mf.setBody(parameters.at(1));
+		mf.set_destination("/topic/user"); //TODO implement user "channel" (=profile tweets)
+		cout << mf.toString() << endl;
+		return mf;
 	}
 	StompFrame sf;
 	return sf;
