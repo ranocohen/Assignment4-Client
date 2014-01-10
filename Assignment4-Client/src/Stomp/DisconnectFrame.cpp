@@ -19,3 +19,4 @@ DisconnectFrame::~DisconnectFrame() {
 void  DisconnectFrame::set_id(string id) {
 	addHeader("id",id);
 }
+void DisconnectFrame::apply(ConnectionHandler* cHandler) {}
