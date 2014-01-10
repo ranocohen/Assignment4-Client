@@ -7,26 +7,6 @@
 #include <iostream>
 #include <boost/thread.hpp>
 #include "../headers/CommandParser.h"
-class UserNetworkingHandle {
-private:
-
-	int _id;
-	ConnectionHandler* connectionHandler;
-
-public:
-	UserNetworkingHandle(int number, ConnectionHandler* cH) :
-		_id(number) , connectionHandler(cH){}
-
-		void run() {
-			while (1) {
-				std::string answer;
-				if (!connectionHandler->getFrameAscii(answer,'\0')) {
-					std::cout << "Disconnected. Exiting...\n" << std::endl;
-				}
-				std::cout << answer << endl;
-			}
-		}
-};
 
 class UserCommandHandler {
 private:
@@ -36,30 +16,33 @@ private:
 
 public:
 	UserCommandHandler(int number, ConnectionHandler* cH) :
-			_id(number) , connectionHandler(cH){}
+			_id(number), connectionHandler(cH) {
+	}
 	std::string line;
-		void run() {
-			while (line!="exit") {
-				const short bufsize = 1024;
-				char buf[bufsize];
-				std::cin.getline(buf, bufsize);
-				std::string line(buf);
-				int len = line.length();
-					CommandParser parser(line);
-					StompFrame* sf = parser.getStompFrame();
-					// Set the host
-					sf->apply(connectionHandler);
-					string toSend = sf->toString();
-					if (!connectionHandler->sendLine(toSend)) {
-						std::cout << "Disconnected. Exiting...\n" << std::endl;
-						break;
-					}
-					// connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
-					std::cout << "Sent " << len + 1 << " bytes to server"
-							<< std::endl;
+	void run() {
+		while (line != "exit") {
+			const short bufsize = 1024;
+			char buf[bufsize];
+			std::cin.getline(buf, bufsize);
+			std::string line(buf);
+			int len = line.length();
+			CommandParser parser(line);
+			StompFrame* sf = parser.getStompFrame(connectionHandler);
+			// Set the host
+			sf->apply(connectionHandler);
+			if (sf != NULL) {
+				string toSend = sf->toString();
+				if (!connectionHandler->sendLine(toSend)) {
+					std::cout << "Disconnected. Exiting...\n" << std::endl;
+					break;
 				}
-
+				// connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
+				std::cout << "Sent " << len + 1 << " bytes to server"
+						<< std::endl;
+			}
 		}
+
+	}
 };
 
 int main(int argc, char *argv[]) {
@@ -71,17 +54,13 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
-
 	ConnectionHandler connectionHandler(&mutex);
 
 	UserCommandHandler uch(1, &connectionHandler);
-	UserNetworkingHandle unh(2, &connectionHandler);
+
 	boost::thread thUCH(&UserCommandHandler::run, &uch);
-	boost::thread thUNH(&UserNetworkingHandle::run, &unh);
 
 	thUCH.join();
-	thUNH.join();
-
 
 	return 0;
 }

@@ -15,12 +15,15 @@
 CommandParser::CommandParser(string command) {
 	this->command = command;
 }
-StompFrame* CommandParser::getStompFrame() {
+StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 	std::vector<std::string> parameters;
 	boost::split(parameters, command, boost::is_any_of(" "));
 
 	if (parameters.at(0) == "login") {
 		ConnectFrame* cf = new ConnectFrame();
+		cH->setHost(parameters.at(1));
+		int port = atoi(parameters.at(2).c_str());
+		cH->setPort(port);
 		cf->set_user(parameters.at(3));
 		cf->set_code(parameters.at(4));
 		cout << cf->toString() << endl;

@@ -9,12 +9,13 @@
 #define COMMANDPARSER_H_
 
 #include <string>
+#include "../headers/connectionHandler.h"
 #include "stomp/StompFrame.h"
 using namespace std;
 class CommandParser {
 public:
 	CommandParser(string command);
-	StompFrame* getStompFrame();
+	StompFrame* getStompFrame(ConnectionHandler* cH);
 	virtual ~CommandParser();
 
 private:
