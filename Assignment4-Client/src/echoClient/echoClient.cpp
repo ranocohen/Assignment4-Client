@@ -16,7 +16,8 @@ private:
 
 public:
 	UserCommandHandler(int number, ConnectionHandler* cH) :
-			_id(number), connectionHandler(cH) {
+			_id(number) {
+		connectionHandler = cH;
 	}
 	std::string line;
 	void run() {
@@ -29,7 +30,6 @@ public:
 			CommandParser parser(line);
 			StompFrame* sf = parser.getStompFrame(connectionHandler);
 			// Set the host
-			sf->apply(connectionHandler);
 			if (sf != NULL) {
 				string toSend = sf->toString();
 				if (!connectionHandler->sendLine(toSend)) {
@@ -54,9 +54,9 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
-	ConnectionHandler connectionHandler(&mutex);
+	ConnectionHandler* connectionHandler = new ConnectionHandler(&mutex);
 
-	UserCommandHandler uch(1, &connectionHandler);
+	UserCommandHandler uch(1, connectionHandler);
 
 	boost::thread thUCH(&UserCommandHandler::run, &uch);
 

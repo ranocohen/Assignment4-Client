@@ -12,6 +12,9 @@
 #include "../headers/CommandParser.h"
 #include <boost/algorithm/string.hpp>
 #include <vector>
+#include <boost/thread.hpp>
+#include "../headers/UserNetworkingHandle.h"
+
 CommandParser::CommandParser(string command) {
 	this->command = command;
 }
@@ -24,6 +27,15 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		cH->setHost(parameters.at(1));
 		int port = atoi(parameters.at(2).c_str());
 		cH->setPort(port);
+
+		 if (!cH->connect()) {
+			        std::cerr << "Could not connect to server. Check your Internet connection, IP and port." << std::endl;
+			    } else
+			    {
+			    	std::cout << "Connected successfully" << endl;
+			    	UserNetworkingHandle* unh = new UserNetworkingHandle(2, cH);
+			    	boost::thread* thUNH = new boost::thread(&UserNetworkingHandle::run, unh);
+			    }
 		cf->set_user(parameters.at(3));
 		cf->set_code(parameters.at(4));
 		cout << cf->toString() << endl;
@@ -46,6 +58,7 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		cout << mf->toString() << endl;
 		return mf;
 	}
+	cout << "Hey wtf is this cmd ?" << endl;
 	return NULL;
 
 }

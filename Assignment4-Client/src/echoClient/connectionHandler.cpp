@@ -19,7 +19,9 @@ void ConnectionHandler::setHost( string host) {
 void ConnectionHandler::setPort(int port) {
 	this->port = port;
 }
-
+string ConnectionHandler::getHost() {
+	return this->host;
+}
 bool ConnectionHandler::connect() {
     std::cout << "Starting connect to " 
         << host << ":" << port << std::endl;

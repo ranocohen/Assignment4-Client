@@ -58,6 +58,8 @@ public:
     // Set the port
     void setPort(int port);
 
+    // Get the host
+        string getHost();
 }; //class ConnectionHandler
  
 #endif

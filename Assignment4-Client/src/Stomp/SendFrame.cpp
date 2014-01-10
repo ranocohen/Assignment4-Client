@@ -21,4 +21,9 @@ void SendFrame::set_destination(string dest) {
 	addHeader("destination",dest);
 }
 
-void SendFrame::apply(ConnectionHandler* cHandler) {}
+void SendFrame::apply(ConnectionHandler* cHandler) {
+
+
+
+
+}
