@@ -38,8 +38,11 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 			boost::thread* thUNH = new boost::thread(&UserNetworkingHandle::run,
 					unh);
 		}
+		cf->set_accept_version("1.2");
+		cf->set_host(parameters.at(1));
 		cf->set_user(parameters.at(3));
 		cf->set_code(parameters.at(4));
+
 		cout << cf->toString() << endl;
 		return cf;
 	} else if (parameters.at(0) == "follow") {

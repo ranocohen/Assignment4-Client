@@ -19,7 +19,8 @@ public:
 	ConnectFrame();
 	void set_user(string user);
 	void set_code(string code);
-
+	void set_host(string host);
+	void set_accept_version(string version);
 	virtual ~ConnectFrame();
 
 	virtual void apply(ConnectionHandler* cHandler);

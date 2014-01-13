@@ -22,6 +22,12 @@ ConnectFrame::~ConnectFrame() {
 void ConnectFrame::set_user(string user) {
 	addHeader("login",user);
 }
+void ConnectFrame::set_host(string host) {
+	addHeader("host",host);
+}
+void ConnectFrame::set_accept_version(string version) {
+	addHeader("accept-version",version);
+}
 
 void ConnectFrame::set_code(string code) {
 	addHeader("passcode",code);
