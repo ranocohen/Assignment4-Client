@@ -11,6 +11,7 @@
 #include <string>
 #include "../headers/connectionHandler.h"
 #include "stomp/StompFrame.h"
+#include <map>
 using namespace std;
 class CommandParser {
 public:
@@ -22,6 +23,9 @@ public:
 private:
 	string command;
 	int uniqueId;
+	map<string, string> following;
+
+
 };
 
 #endif /* COMMANDPARSER_H_ */

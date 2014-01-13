@@ -47,18 +47,27 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		return cf;
 	} else if (parameters.at(0) == "follow") {
 		SubscribeFrame* sf = new SubscribeFrame();
-		sf->set_id(getUniqueId()); //TODO need to generate unique
-		sf->set_destination(parameters.at(1)); //user
+
+		string uId = getUniqueId(); //generate unique id for this subscription
+		sf->set_id(uId);
+
+		//get the destination (user to follow)
+		string destTopic = parameters.at(1);
+
+		//save the unique id in a map with this user name (later to be used for un-follow)
+		following.insert(std::pair<string,string>(destTopic,uId));
+		sf->set_destination(destTopic); //user
+
 		cout << sf->toString() << endl;
 		return sf;
 	} else if (parameters.at(0) == "unfollow") {
 		UnsubscribeFrame* usf = new UnsubscribeFrame();
-		usf->set_id("1234"); //TODO need to generate unique
+
 		cout << usf->toString() << endl;
 		return usf;
 	} else if (parameters.at(0) == "tweet") {
 		SendFrame* mf = new SendFrame();
-		mf->set_destination("/test/teata"); //TODO implement user "channel" (=profile tweets)
+		mf->set_destination(cH->getUser());
 		mf->setBody(parameters.at(1));
 		cout << mf->toString() << endl;
 		return mf;
