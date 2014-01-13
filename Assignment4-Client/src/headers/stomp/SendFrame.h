@@ -1,5 +1,5 @@
 /*
- * SendFrame.h
+ * SendFrame.hid
  *
  *  Created on: Jan 9, 2014
  *      Author: ran
@@ -14,6 +14,7 @@ class SendFrame: public StompFrame {
 public:
 	SendFrame();
 	void set_body(string id);
+	void set_message(string msg);
 	void set_destination(string id);
 	virtual ~SendFrame();
 	virtual void apply(ConnectionHandler* cHandler);

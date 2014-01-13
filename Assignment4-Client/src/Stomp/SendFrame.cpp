@@ -20,6 +20,9 @@ SendFrame::~SendFrame() {
 void SendFrame::set_destination(string dest) {
 	addHeader("destination",dest);
 }
+void SendFrame::set_message(string msg) {
+	setBody(msg);
+}
 
 void SendFrame::apply(ConnectionHandler* cHandler) {
 
