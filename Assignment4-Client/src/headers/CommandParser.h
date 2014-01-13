@@ -17,9 +17,11 @@ public:
 	CommandParser(string command);
 	StompFrame* getStompFrame(ConnectionHandler* cH);
 	virtual ~CommandParser();
+	string getUniqueId();
 
 private:
 	string command;
+	int uniqueId;
 };
 
 #endif /* COMMANDPARSER_H_ */

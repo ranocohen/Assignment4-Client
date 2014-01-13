@@ -28,21 +28,23 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		int port = atoi(parameters.at(2).c_str());
 		cH->setPort(port);
 
-		 if (!cH->connect()) {
-			        std::cerr << "Could not connect to server. Check your Internet connection, IP and port." << std::endl;
-			    } else
-			    {
-			    	std::cout << "Connected successfully" << endl;
-			    	UserNetworkingHandle* unh = new UserNetworkingHandle(2, cH);
-			    	boost::thread* thUNH = new boost::thread(&UserNetworkingHandle::run, unh);
-			    }
+		if (!cH->connect()) {
+			std::cerr
+					<< "Could not connect to server. Check your Internet connection, IP and port."
+					<< std::endl;
+		} else {
+			std::cout << "Connected successfully" << endl;
+			UserNetworkingHandle* unh = new UserNetworkingHandle(2, cH);
+			boost::thread* thUNH = new boost::thread(&UserNetworkingHandle::run,
+					unh);
+		}
 		cf->set_user(parameters.at(3));
 		cf->set_code(parameters.at(4));
 		cout << cf->toString() << endl;
 		return cf;
 	} else if (parameters.at(0) == "follow") {
 		SubscribeFrame* sf = new SubscribeFrame();
-		sf->set_id("1234"); //TODO need to generate unique
+		sf->set_id(getUniqueId()); //TODO need to generate unique
 		sf->set_destination(parameters.at(1)); //user
 		cout << sf->toString() << endl;
 		return sf;
@@ -51,10 +53,10 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		usf->set_id("1234"); //TODO need to generate unique
 		cout << usf->toString() << endl;
 		return usf;
-	}else if (parameters.at(0) == "tweet") {
+	} else if (parameters.at(0) == "tweet") {
 		SendFrame* mf = new SendFrame();
+		mf->set_destination("/test/teata"); //TODO implement user "channel" (=profile tweets)
 		mf->setBody(parameters.at(1));
-		mf->set_destination("/topic/user"); //TODO implement user "channel" (=profile tweets)
 		cout << mf->toString() << endl;
 		return mf;
 	}
@@ -63,5 +65,13 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 
 }
 CommandParser::~CommandParser() {
-}
 
+}
+//incrementing unique id function
+string CommandParser::getUniqueId() {
+	uniqueId++;
+	ostringstream s;
+	s << uniqueId;
+	string ans = s.str();
+	return ans;
+}

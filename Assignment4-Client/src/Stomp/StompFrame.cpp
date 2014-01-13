@@ -34,7 +34,7 @@ string StompFrame::toString() {
 	{
 		ss<<it->first<<':'<<it->second<<'\n';
 	}
-	ss<<'\n'<<'\n'<<body<<'\0';
+	ss<<'\n'<<body<<'\n'<<'\0';
 	return ss.str();
 }
 
