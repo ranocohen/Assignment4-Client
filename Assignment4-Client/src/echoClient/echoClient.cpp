@@ -7,6 +7,8 @@
 #include <iostream>
 #include <boost/thread.hpp>
 #include "../headers/CommandParser.h"
+#include "../headers/AppLogger.h"
+
 
 class UserCommandHandler {
 private:
@@ -48,6 +50,11 @@ public:
 int main(int argc, char *argv[]) {
 	boost::mutex mutex;
 
+	//CAppLogger::file = "logFile";
+
+	//CAppLogger::Instance().Log("FATAL" , Poco::Message::PRIO_FATAL);
+
+
 	if (argc < 3) {
 		std::cerr << "Usage: " << argv[0] << " host port" << std::endl
 				<< std::endl;
@@ -64,4 +71,7 @@ int main(int argc, char *argv[]) {
 
 	return 0;
 }
+
+char* CAppLogger::file;
+
 
