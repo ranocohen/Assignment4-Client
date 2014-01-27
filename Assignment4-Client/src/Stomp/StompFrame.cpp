@@ -34,7 +34,7 @@ string StompFrame::toString() {
 			it != headers.end(); ++it) {
 		ss << it->first << ':' << it->second << '\n';
 	}
-	ss << '\n' << body << '\0';
+	ss << '\n' << body  << '\0';
 	return ss.str();
 
 }
