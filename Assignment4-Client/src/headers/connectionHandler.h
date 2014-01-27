@@ -62,6 +62,8 @@ public:
 	string getHost();
 	// Get the host
 	string getUser();
+
+	void setUser(string user);
 };
 //class ConnectionHandler
 

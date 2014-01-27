@@ -27,7 +27,9 @@ string ConnectionHandler::getHost() {
 string ConnectionHandler::getUser() {
 	return this->user;
 }
-
+void ConnectionHandler::setUser(string user) {
+	this->user = user;
+}
 bool ConnectionHandler::connect() {
 	std::cout << "Starting connect to " << host << ":" << port << std::endl;
 	try {

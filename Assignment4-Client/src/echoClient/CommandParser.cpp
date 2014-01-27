@@ -27,7 +27,7 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		cH->setHost(parameters.at(1));
 		int port = atoi(parameters.at(2).c_str());
 		cH->setPort(port);
-
+		cH->setUser(parameters.at(3));
 		if (!cH->connect()) {
 			std::cerr
 					<< "Could not connect to server. Check your Internet connection, IP and port."
@@ -95,9 +95,11 @@ string CommandParser::getSubscribeId(string topic) {
 	std::map<string, string>::iterator it = following.find(topic);
 	cout << "following size is " << following.size();
 	if (it != following.end() ) {
-		return it->second;
+		string ans = string(it->second);
+		following.erase(topic);
+		return ans;
 	} else {
-	    cout << "ERROR";
+	    cout << "Could not unfollow " << topic;
 	}
 	return "-1";
 }
