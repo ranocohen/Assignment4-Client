@@ -19,6 +19,7 @@ public:
 	StompFrame* getStompFrame(ConnectionHandler* cH);
 	virtual ~CommandParser();
 	string getUniqueId();
+	void setCommand(string cmd);
 	string getSubscribeId(string topic);
 
 private:

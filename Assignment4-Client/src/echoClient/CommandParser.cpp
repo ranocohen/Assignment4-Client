@@ -56,6 +56,7 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 
 		//save the unique id in a map with this user name (later to be used for un-follow)
 		following.insert(std::pair<string,string>(destTopic,uId));
+		cout << "following size is " << following.size();
 		sf->set_destination(destTopic); //user
 
 		cout << sf->toString() << endl;
@@ -92,11 +93,14 @@ string CommandParser::getUniqueId() {
 }
 string CommandParser::getSubscribeId(string topic) {
 	std::map<string, string>::iterator it = following.find(topic);
-
+	cout << "following size is " << following.size();
 	if (it != following.end() ) {
 		return it->second;
 	} else {
 	    cout << "ERROR";
 	}
 	return "-1";
+}
+void CommandParser::setCommand(string cmd) {
+	this->command = cmd;
 }

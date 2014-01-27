@@ -23,13 +23,14 @@ public:
 	}
 	std::string line;
 	void run() {
+		CommandParser parser(line);
 		while (line != "exit") {
 			const short bufsize = 1024;
 			char buf[bufsize];
 			std::cin.getline(buf, bufsize);
 			std::string line(buf);
 			int len = line.length();
-			CommandParser parser(line);
+			parser.setCommand(line);
 			StompFrame* sf = parser.getStompFrame(connectionHandler);
 			// Set the host
 			if (sf != NULL) {
