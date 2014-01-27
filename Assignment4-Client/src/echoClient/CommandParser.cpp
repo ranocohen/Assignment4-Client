@@ -62,6 +62,9 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		return sf;
 	} else if (parameters.at(0) == "unfollow") {
 		UnsubscribeFrame* usf = new UnsubscribeFrame();
+		string id = getSubscribeId(parameters.at(1));
+		if(id!="-1")
+			usf->set_id(id);
 
 		cout << usf->toString() << endl;
 		return usf;
@@ -86,4 +89,14 @@ string CommandParser::getUniqueId() {
 	s << uniqueId;
 	string ans = s.str();
 	return ans;
+}
+string CommandParser::getSubscribeId(string topic) {
+	std::map<string, string>::iterator it = following.find(topic);
+
+	if (it != following.end() ) {
+		return it->second;
+	} else {
+	    cout << "ERROR";
+	}
+	return "-1";
 }
