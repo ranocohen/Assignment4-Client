@@ -40,11 +40,6 @@ public:
 				std::cout << "Sent " << len + 1 << " bytes to server"
 						<< std::endl;
 			}
-			else
-			{
-				string dummy("DUMMY \0");
-				connectionHandler->sendLine(dummy);
-			}
 		}
 
 	}

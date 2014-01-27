@@ -21,6 +21,7 @@ public:
 	string getHeaderValue(string);
 	string getCommand();
 	string getBody();
+	string readableString();
 	void setBody(string message);
 	void addHeader(string name,string value);
 	string toString();

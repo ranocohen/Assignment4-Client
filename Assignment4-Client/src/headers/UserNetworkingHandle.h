@@ -6,13 +6,14 @@
 #include <string>
 #include <ostream>
 #include <iostream>
+#include "stomp/StompFrame.h"
 #include "connectionHandler.h"
 class UserNetworkingHandle {
 public:
 	UserNetworkingHandle(int number, ConnectionHandler* cH);
 	void run();
 	virtual ~UserNetworkingHandle();
-
+	StompFrame* getFrame(string packetstring);
 
 private:
 

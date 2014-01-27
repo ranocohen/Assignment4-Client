@@ -5,7 +5,7 @@
 #include "Poco/ConsoleChannel.h"
 #include "Poco/FileChannel.h"
 
-#include "AppLogger.h"
+#include "../headers/AppLogger.h"
 
 using namespace Poco;
 using namespace std;
@@ -14,7 +14,7 @@ CAppLogger::CAppLogger(void) {
 	// We tell the vector how much elements we it'll have - its more efficient.
 	mLoggers.resize(ELoggersCount);
 
-	configureLogger(CAppLogger::file);
+	//configureLogger(CAppLogger::file);
 	// Build the loggers
 	mLoggers[ELoggerConsole] = &Logger::create("Log.Console",
 			LoggingFactory::defaultFactory().createChannel("ConsoleChannel"),

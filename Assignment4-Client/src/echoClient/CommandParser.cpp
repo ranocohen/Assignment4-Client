@@ -15,7 +15,7 @@
 #include <boost/thread.hpp>
 #include "../headers/UserNetworkingHandle.h"
 
-CommandParser::CommandParser(string command) {
+CommandParser::CommandParser(string command) : uniqueId(0){
 	this->command = command;
 }
 StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
