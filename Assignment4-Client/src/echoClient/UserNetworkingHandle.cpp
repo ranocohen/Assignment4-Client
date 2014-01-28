@@ -1,6 +1,8 @@
 #include "../headers/UserNetworkingHandle.h"
 #include "../headers/stomp/StompFrame.h"
 #include "../headers/stomp/ErrorFrame.h"
+#include "../headers/stomp/ConnectFrame.h"
+#include "../headers/stomp/MessageFrame.h"
 
 	using namespace std;
 UserNetworkingHandle::UserNetworkingHandle(int number, ConnectionHandler* cH) :
@@ -34,9 +36,9 @@ void UserNetworkingHandle::run() {
 StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 	StompFrame* sf;
 	string command;
-	if (packetstring.length() == 0)
+	if (packetstring.length() == 0 || packetstring == "\0")
 		return NULL;
-	if (packetstring.find('\0') != std::string::npos) {
+	if (packetstring.find('\0') == std::string::npos) {
 		std::stringstream ss;
 		ss << "Packet string contains the null character at position "
 				<< packetstring.find('\0') << "/" << packetstring.length()
@@ -50,7 +52,10 @@ StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 
 	if(command == "ERROR")
 		sf = new ErrorFrame();
-
+	else if(command =="CONNECT")
+		sf = new ConnectFrame();
+	else if(command =="Message")
+		sf = new MessageFrame();
 
 
 	std::string line;
