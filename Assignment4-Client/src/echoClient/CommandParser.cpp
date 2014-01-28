@@ -43,7 +43,7 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		cf->set_user(parameters.at(3));
 		cf->set_code(parameters.at(4));
 
-		cout << cf->toString() << endl;
+
 		return cf;
 	} else if (parameters.at(0) == "follow") {
 		SubscribeFrame* sf = new SubscribeFrame();
@@ -58,7 +58,7 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		following.insert(std::pair<string,string>(destTopic,uId));
 		sf->set_destination(destTopic); //user
 
-		cout << sf->toString() << endl;
+
 		return sf;
 	} else if (parameters.at(0) == "unfollow") {
 		UnsubscribeFrame* usf = new UnsubscribeFrame();
@@ -66,7 +66,7 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		if(id!="-1")
 			usf->set_id(id);
 
-		cout << usf->toString() << endl;
+
 		return usf;
 	} else if (parameters.at(0) == "tweet") {
 		SendFrame* mf = new SendFrame();
@@ -82,6 +82,19 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 
 		return mf;
 	}
+ else if (parameters.at(0) == "clients") {
+	SendFrame* mf = new SendFrame();
+	mf->set_destination("server");
+
+
+	if(parameters.size() > 1)
+		if(parameters[1] == "online")
+
+	mf->addHeader("online","true");
+
+	return mf;
+}
+
 	cout << "Unknown command..." << endl;
 	return NULL;
 

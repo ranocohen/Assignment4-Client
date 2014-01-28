@@ -89,7 +89,11 @@ StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 		}
 
 	}
+	if(command =="ERROR") {
 
+		cout << "ERROR : " << sf->getBody();
+
+	}
 
 	return sf;
 }

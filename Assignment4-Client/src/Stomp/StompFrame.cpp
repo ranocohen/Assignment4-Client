@@ -49,8 +49,6 @@ string StompFrame::readableString() {
 
 string StompFrame::getHeaderValue(string header) {
 
-
-
 	return headers.find(header)->second;
 }
 
