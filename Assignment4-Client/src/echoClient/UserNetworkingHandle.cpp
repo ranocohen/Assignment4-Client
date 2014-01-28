@@ -36,7 +36,7 @@ void UserNetworkingHandle::run() {
 StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 	StompFrame* sf;
 	string command;
-	if (packetstring.length() == 0 || packetstring == "\0")
+	if (packetstring[0] == '\0')
 		return NULL;
 	if (packetstring.find('\0') == std::string::npos) {
 		std::stringstream ss;
