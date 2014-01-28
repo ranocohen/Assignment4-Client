@@ -81,7 +81,7 @@ StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 	sf->apply(this->connectionHandler);
 	if(command =="MESSAGE") {
 		if(sf->getHeaderValue("isTweet") == "true") {
-
+			std::cout << "New message : " << sf->getBody() << std::endl;
 			htmlfile->addTweetTag(connectionHandler->getUser(),sf->getHeaderValue("sender"),sf->getBody(),sf->getHeaderValue("time"));
 			//htmlfile->addTweetTag("ran","hello twitter","12:00");
 			//htmlfile->addTweetTag("idan","adiel ashrov is my king","12:01");
