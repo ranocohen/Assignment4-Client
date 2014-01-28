@@ -91,10 +91,16 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		if(parameters[1] == "online")
 
 	mf->addHeader("online","true");
-
+	mf->addHeader("clients","true");
 	return mf;
 }
+ else if (parameters.at(0) == "stats") {
+	SendFrame* mf = new SendFrame();
+	mf->set_destination("server");
 
+	mf->addHeader("stats","true");
+	return mf;
+}
 	cout << "Unknown command..." << endl;
 	return NULL;
 
