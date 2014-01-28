@@ -8,7 +8,7 @@
 #include <boost/thread.hpp>
 #include "../headers/CommandParser.h"
 #include "../headers/AppLogger.h"
-#include "HTMLHandler.h"
+#include "../headers/HTMLHandler.h"
 
 
 class UserCommandHandler {
@@ -62,11 +62,7 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
-	HTMLHandler* htmlfile = new HTMLHandler();
-	htmlfile->addTweetTag("ran","hello twitter","12:00");
-	htmlfile->addTweetTag("idan","adiel ashrov is my king","12:01");
 
-	htmlfile->sealHTMLFile();
 
 	ConnectionHandler* connectionHandler = new ConnectionHandler(&mutex);
 

@@ -8,6 +8,7 @@
 UserNetworkingHandle::UserNetworkingHandle(int number, ConnectionHandler* cH) :
 		_id(number) {
 	this->connectionHandler = cH;
+	htmlfile = new HTMLHandler();
 
 }
 
@@ -54,7 +55,7 @@ StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 		sf = new ErrorFrame();
 	else if(command =="CONNECT")
 		sf = new ConnectFrame();
-	else if(command =="Message")
+	else if(command =="MESSAGE")
 		sf = new MessageFrame();
 
 
@@ -77,6 +78,13 @@ StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 			body += c;
 	}
 	sf->setBody(body);
+
+	if(command =="Message") {
+
+		htmlfile->addTweetTag("ran","hello twitter","12:00");
+		htmlfile->addTweetTag("idan","adiel ashrov is my king","12:01");
+		htmlfile->sealHTMLFile();
+	}
 
 
 	return sf;

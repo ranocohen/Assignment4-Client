@@ -72,7 +72,14 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 	} else if (parameters.at(0) == "tweet") {
 		SendFrame* mf = new SendFrame();
 		mf->set_destination(cH->getUser());
-		mf->setBody(parameters.at(1));
+
+		string unifier = "";
+		for (int i = 1; i < parameters.size(); ++i) {
+			unifier += parameters[i]+ " ";
+		}
+
+
+		mf->setBody(unifier);
 		cout << mf->toString() << endl;
 		return mf;
 	}

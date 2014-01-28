@@ -8,12 +8,16 @@
 #include <iostream>
 #include "stomp/StompFrame.h"
 #include "connectionHandler.h"
+#include "../headers/HTMLHandler.h"
+
 class UserNetworkingHandle {
 public:
 	UserNetworkingHandle(int number, ConnectionHandler* cH);
 	void run();
 	virtual ~UserNetworkingHandle();
 	StompFrame* getFrame(string packetstring);
+
+	HTMLHandler* htmlfile;
 
 private:
 
