@@ -8,6 +8,7 @@
 #include <boost/thread.hpp>
 #include "../headers/CommandParser.h"
 #include "../headers/AppLogger.h"
+#include "HTMLHandler.h"
 
 
 class UserCommandHandler {
@@ -55,12 +56,13 @@ int main(int argc, char *argv[]) {
 
 	//CAppLogger::Instance().Log("FATAL" , Poco::Message::PRIO_FATAL);
 
-
 	if (argc < 3) {
 		std::cerr << "Usage: " << argv[0] << " host port" << std::endl
 				<< std::endl;
 		return -1;
 	}
+
+	HTMLHandler* htmlfile = new HTMLHandler();
 
 	ConnectionHandler* connectionHandler = new ConnectionHandler(&mutex);
 

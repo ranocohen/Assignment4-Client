@@ -1,6 +1,7 @@
 #include "../headers/UserNetworkingHandle.h"
 #include "../headers/stomp/StompFrame.h"
 #include "../headers/stomp/ErrorFrame.h"
+
 	using namespace std;
 UserNetworkingHandle::UserNetworkingHandle(int number, ConnectionHandler* cH) :
 		_id(number) {
@@ -25,13 +26,12 @@ void UserNetworkingHandle::run() {
 		cout << "NEW MESSAGE FROM SERVER " << std::endl;
 		cout << answer<< std::endl;
 
+		StompFrame* sf = getFrame(answer);
 
-
-		/*StompFrame* sf = getFrame(answer);*/
 	}
 }
 
-StompFrame* getFrame(string packetstring) {
+StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 	StompFrame* sf;
 	string command;
 	if (packetstring.length() == 0)
