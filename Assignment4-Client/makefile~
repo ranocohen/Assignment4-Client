@@ -1,0 +1,77 @@
+
+# define some Makefile variables for the compiler and compiler flags
+# to use Makefile variables later in the Makefile: $()
+CC = g++
+CFLAGS  = -g -Wall -Weffc++
+LFLAGS  = -L/usr/lib
+
+# All Targets
+all: client
+	
+# Tool invocations
+
+INCLUDES = -Linclude -I/usr/include/boost -I/usr/local/include/Poco -I/usr/include/
+
+client: bin/AppLogger.o bin/CommandParser.o bin/connectionHandler.o bin/echoClient.o bin/HTMLHandler.o bin/imageloader.o bin/imageoperations.o bin/main.o bin/RegularCustomer.o  bin/UniCoffeeShop.o bin/VipCustomer.o bin/Supplier.o bin/Product.o bin/Ingredient.o 
+	@echo 'Building target: SimCoffeeShop'
+	@echo 'Invoking: C++ Linker'
+	$(CC) -o bin/sim_coffee_shop bin/SimulatorManager.o bin/Utils.o bin/AppLogger.o bin/Customer.o bin/Customers.o bin/imageloader.o bin/imageoperations.o bin/main.o bin/RegularCustomer.o  bin/UniCoffeeShop.o bin/VipCustomer.o bin/Supplier.o bin/Product.o bin/Ingredient.o -L/usr/lib -L/usr/local/lib -lopencv_core -lopencv_highgui -lopencv_imgproc -lPocoUtil -lPocoFoundation -lopencv_objdetect $(LFLAGS)
+	@echo 'Finished building target: UniCoffeeShop'
+	@echo ' '
+
+	
+bin/AppLogger.o: src/echoClient/AppLogger.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/AppLogger.o src/echoClient/AppLogger.cpp
+
+
+bin/CommandParser.o: src/echoClient/CommandParser.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/CommandParser.o src/echoClient/CommandParser.cpp
+
+bin/connectionHandler.o: src/echoClient/connectionHandler.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/connectionHandler.o src/echoClient/connectionHandler.cpp
+
+
+bin/echoClient.o: src/echoClient/echoClient.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/echoClient.o src/echoClient/echoClient.cpp
+	
+	 
+bin/HTMLHandler.o: src/echoClient/HTMLHandler.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/HTMLHandler.o src/echoClient/HTMLHandler.cpp
+	
+	 
+bin/imageloader.o: src/imageloader.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/imageloader.o src/imageloader.cpp 
+	
+	 
+bin/imageoperations.o: src/imageoperations.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/imageoperations.o src/imageoperations.cpp
+	
+	
+bin/main.o: src/main.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/main.o src/main.cpp
+	
+	 
+bin/Product.o: src/Product.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/Product.o src/Product.cpp
+	
+bin/Supplier.o: src/Supplier.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/Supplier.o src/Supplier.cpp
+
+bin/Ingredient.o: src/Ingredient.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/Ingredient.o src/Ingredient.cpp
+	
+	 
+bin/UniCoffeeShop.o: src/UniCoffeeShop.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/UniCoffeeShop.o src/UniCoffeeShop.cpp 
+	
+		
+bin/RegularCustomer.o: src/RegularCustomer.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/RegularCustomer.o src/RegularCustomer.cpp
+	
+		
+bin/VipCustomer.o: src/VipCustomer.cpp
+	$(CC) $(CFLAGS) -c -Linclude $(INCLUDES) -o bin/VipCustomer.o src/VipCustomer.cpp
+	
+#Clean the build directory
+clean: 
+	rm -f bin/*
