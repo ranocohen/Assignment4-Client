@@ -9,7 +9,7 @@ UserNetworkingHandle::UserNetworkingHandle(int number, ConnectionHandler* cH) :
 		_id(number) {
 	this->connectionHandler = cH;
 	htmlfile = new HTMLHandler();
-
+	htmlfile->openHTMLFile(connectionHandler->getUser());
 }
 
 UserNetworkingHandle::~UserNetworkingHandle() {
@@ -37,7 +37,7 @@ void UserNetworkingHandle::run() {
 StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 	StompFrame* sf;
 	string command;
-	if (packetstring[0] == '\0')
+	if (packetstring[0] == '\0' || packetstring[0] == '\n')
 		return NULL;
 	if (packetstring.find('\0') == std::string::npos) {
 		std::stringstream ss;
@@ -79,11 +79,15 @@ StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 	}
 	sf->setBody(body);
 
-	if(command =="Message") {
+	if(command =="MESSAGE") {
+		if(sf->getHeaderValue("isTweet") == "true") {
 
-		htmlfile->addTweetTag("ran","hello twitter","12:00");
-		htmlfile->addTweetTag("idan","adiel ashrov is my king","12:01");
-		htmlfile->sealHTMLFile();
+			htmlfile->addTweetTag(connectionHandler->getUser(),sf->getHeaderValue("sender"),sf->getBody(),sf->getHeaderValue("time"));
+			//htmlfile->addTweetTag("ran","hello twitter","12:00");
+			//htmlfile->addTweetTag("idan","adiel ashrov is my king","12:01");
+			htmlfile->sealHTMLFile();
+		}
+
 	}
 
 

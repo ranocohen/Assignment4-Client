@@ -15,12 +15,15 @@ StompFrame::StompFrame(string command, string body) {
 	this->body = body;
 }
 
-
 StompFrame::~StompFrame() {
 // TODO Auto-generated destructor stub
 }
 void StompFrame::setBody(string body) {
 	this->body = body;
+}
+
+string StompFrame::getBody() {
+	return this->body;
 }
 
 void StompFrame::addHeader(string name, string value) {
@@ -34,7 +37,7 @@ string StompFrame::toString() {
 			it != headers.end(); ++it) {
 		ss << it->first << ':' << it->second << '\n';
 	}
-	ss << '\n' << body  << '\0';
+	ss << '\n' << body << '\0';
 	return ss.str();
 
 }
@@ -42,6 +45,12 @@ string StompFrame::readableString() {
 	std::stringstream ss;
 	ss << command << " : " << body;
 	return ss.str();
+}
 
+string StompFrame::getHeaderValue(string header) {
+
+	//cout << header << endl;
+	cout << headers.find(header)->second << endl;
+	return headers.find(header)->second;
 }
 

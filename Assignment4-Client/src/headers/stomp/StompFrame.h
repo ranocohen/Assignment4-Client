@@ -18,7 +18,7 @@ public:
 	StompFrame(string command,string body);
 	virtual ~StompFrame();
 
-	string getHeaderValue(string);
+	string getHeaderValue(string header);
 	string getCommand();
 	string getBody();
 	string readableString();

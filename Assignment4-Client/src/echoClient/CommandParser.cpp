@@ -49,7 +49,7 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		SubscribeFrame* sf = new SubscribeFrame();
 
 		string uId = getUniqueId(); //generate unique id for this subscription
-		sf->set_id(uId);
+		sf->set_id(parameters.at(1));
 
 		//get the destination (user to follow)
 		string destTopic = parameters.at(1);
@@ -63,7 +63,7 @@ StompFrame* CommandParser::getStompFrame(ConnectionHandler* cH) {
 		return sf;
 	} else if (parameters.at(0) == "unfollow") {
 		UnsubscribeFrame* usf = new UnsubscribeFrame();
-		string id = getSubscribeId(parameters.at(1));
+		string id = parameters.at(1);
 		if(id!="-1")
 			usf->set_id(id);
 

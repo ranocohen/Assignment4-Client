@@ -13,8 +13,9 @@ public:
 
 	HTMLHandler();
 	virtual ~HTMLHandler();
-	void addTweetTag(string user, string tweet,string time);
+	void addTweetTag(string profile,string user, string tweet,string time);
 	void sealHTMLFile();
+	void openHTMLFile(string profileName);
 };
 
 #endif /* HTMLHANDLER_H_ */
