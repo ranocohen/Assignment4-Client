@@ -63,6 +63,10 @@ int main(int argc, char *argv[]) {
 	}
 
 	HTMLHandler* htmlfile = new HTMLHandler();
+	htmlfile->addTweetTag("ran","hello twitter","12:00");
+	htmlfile->addTweetTag("idan","adiel ashrov is my king","12:01");
+
+	htmlfile->sealHTMLFile();
 
 	ConnectionHandler* connectionHandler = new ConnectionHandler(&mutex);
 
