@@ -41,8 +41,8 @@ public:
 					break;
 				}
 				// connectionHandler.sendLine(line) appends '\n' to the message. Therefore we send len+1 bytes.
-				std::cout << "Sent " << len + 1 << " bytes to server"
-						<< std::endl;
+				/*std::cout << "Sent " << len + 1 << " bytes to server"
+						<< std::endl;*/
 			}
 			delete sf;
 		}

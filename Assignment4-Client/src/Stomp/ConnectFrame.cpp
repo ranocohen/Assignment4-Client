@@ -33,6 +33,6 @@ void ConnectFrame::set_code(string code) {
 	addHeader("passcode",code);
 }
 void ConnectFrame::apply(ConnectionHandler* cHandler) {
-
+	cout << "Login successfully" << endl;
 
 }

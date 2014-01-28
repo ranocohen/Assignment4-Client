@@ -26,8 +26,8 @@ void UserNetworkingHandle::run() {
 			std::cout << "Disconnected. Exiting...\n" << std::endl;
 			break;
 		}
-		cout << "NEW MESSAGE FROM SERVER " << std::endl;
-		cout << answer<< std::endl;
+	/*	cout << "NEW MESSAGE FROM SERVER " << std::endl;
+		cout << answer<< std::endl;*/
 
 		StompFrame* sf = getFrame(answer);
 
@@ -78,7 +78,7 @@ StompFrame* UserNetworkingHandle::getFrame(string packetstring) {
 			body += c;
 	}
 	sf->setBody(body);
-
+	sf->apply(this->connectionHandler);
 	if(command =="MESSAGE") {
 		if(sf->getHeaderValue("isTweet") == "true") {
 

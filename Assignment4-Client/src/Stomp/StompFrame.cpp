@@ -49,8 +49,8 @@ string StompFrame::readableString() {
 
 string StompFrame::getHeaderValue(string header) {
 
-	//cout << header << endl;
-	cout << headers.find(header)->second << endl;
+
+
 	return headers.find(header)->second;
 }
 
